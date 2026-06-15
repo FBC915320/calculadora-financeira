@@ -325,6 +325,30 @@
     background: #fff;
   }
   .footer span { color: var(--orange); }
+
+  @media (max-width: 480px) {
+    .header-logo img { height: 50px; padding: 4px 8px; }
+    .header-tag { display: none; }
+
+    .hero { padding: 24px 16px 20px; }
+
+    .section { padding: 16px 12px; }
+
+    .sliders-card { padding: 18px 14px; }
+
+    .breakdown { grid-template-columns: 1fr 1fr; }
+
+    .table-head,
+    .table-row {
+      grid-template-columns: 36px 1fr 1fr 1fr;
+      padding: 8px 10px;
+      font-size: 12px;
+    }
+    .year-col { font-size: 15px; }
+
+    .bar-deposited,
+    .bar-interest-fill { font-size: 10px; }
+  }
 </style>
 </head>
 <body>
