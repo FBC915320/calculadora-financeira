@@ -326,6 +326,28 @@
   }
   .footer span { color: var(--orange); }
 
+  .year-presets {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .yr-btn {
+    flex: 1;
+    padding: 6px 4px;
+    border: 1.5px solid #ddd;
+    border-radius: 6px;
+    background: #fff;
+    font-family: 'Barlow', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .yr-btn:hover { border-color: var(--orange); color: var(--orange); }
+  .yr-btn.active { border-color: var(--orange); background: var(--orange); color: #fff; }
+
   @media (max-width: 480px) {
     .header-logo img { height: 50px; padding: 4px 8px; }
     .header-tag { display: none; }
@@ -387,6 +409,13 @@
         <span class="slider-value" id="val-years">1 ano</span>
       </div>
       <input type="range" id="sl-years" min="1" max="30" step="1" value="1">
+      <div class="year-presets">
+        <button class="yr-btn active" data-y="1">1 ano</button>
+        <button class="yr-btn" data-y="5">5 anos</button>
+        <button class="yr-btn" data-y="10">10 anos</button>
+        <button class="yr-btn" data-y="20">20 anos</button>
+        <button class="yr-btn" data-y="30">30 anos</button>
+      </div>
     </div>
   </div>
 
@@ -500,6 +529,20 @@ function update() {
 ['sl-daily','sl-rate','sl-years'].forEach(id =>
   document.getElementById(id).addEventListener('input', update)
 );
+
+document.querySelectorAll('.yr-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.getElementById('sl-years').value = btn.dataset.y;
+    document.querySelectorAll('.yr-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    update();
+  });
+});
+
+document.getElementById('sl-years').addEventListener('input', () => {
+  document.querySelectorAll('.yr-btn').forEach(b => b.classList.remove('active'));
+});
+
 update();
 </script>
 
