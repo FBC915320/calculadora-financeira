@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<!-- saved from url=(0066)file:///Users/fab/Downloads/economia-diaria-juros-compostos_2.html -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O Poder de R$5 por Dia</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@400;600&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --orange: #E8620A;
+    --dark: #222;
+    --bg: #F7F7F7;
+    --white: #FFFFFF;
+    --green: #1A8C4E;
+  }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--bg);
+    color: var(--dark);
+    min-height: 100vh;
+  }
+
+  .header {
+    background: var(--dark);
+    border-bottom: 4px solid var(--orange);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .header-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 22px;
+    color: #fff;
+    letter-spacing: 1px;
+  }
+  .header-logo span { color: var(--orange); }
+  .header-tag {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--orange);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: 1px solid var(--orange);
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+
+  .hero {
+    background: var(--dark);
+    color: #fff;
+    text-align: center;
+    padding: 36px 20px 28px;
+  }
+  .hero-eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 10px;
+  }
+  .hero-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(36px, 9vw, 64px);
+    line-height: 1.05;
+    text-transform: uppercase;
+  }
+  .hero-title .accent { color: var(--orange); }
+  .hero-sub {
+    margin-top: 12px;
+    font-size: 15px;
+    color: #bbb;
+    line-height: 1.5;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .section { max-width: 600px; margin: 0 auto; padding: 20px 16px; }
+
+  /* SLIDERS */
+  .sliders-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 24px 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .slider-group { margin-bottom: 22px; }
+  .slider-group:last-child { margin-bottom: 0; }
+  .slider-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+  }
+  .slider-label .lbl {
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .slider-value {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--orange);
+  }
+  input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 5px;
+    background: #ddd;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--orange);
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(232,98,10,0.4);
+  }
+
+  /* RESULTADO */
+  .result-main {
+    background: var(--green);
+    border-radius: 10px;
+    padding: 28px 20px;
+    text-align: center;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 16px rgba(26,140,78,0.2);
+  }
+  .result-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 6px;
+  }
+  .result-value {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(38px, 10vw, 64px);
+    color: #fff;
+    line-height: 1;
+  }
+  .result-period {
+    margin-top: 6px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+  }
+
+  /* BREAKDOWN */
+  .breakdown {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .b-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+  .b-card.highlight { border-color: var(--orange); border-width: 2px; }
+  .b-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 6px;
+  }
+  .b-val {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--dark);
+  }
+  .b-card.highlight .b-val { color: var(--orange); }
+
+  /* BARRA */
+  .bar-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+  .bar-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 12px;
+  }
+  .bar-track {
+    height: 32px;
+    background: #eee;
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 10px;
+  }
+  .bar-deposited {
+    position: absolute;
+    left: 0;
+    height: 100%;
+    background: #bbb;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    transition: width 0.4s ease;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .bar-interest-fill {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    background: var(--orange);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    transition: width 0.4s ease;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .bar-legend {
+    display: flex;
+    gap: 16px;
+    font-size: 12px;
+    color: #666;
+  }
+  .dot {
+    display: inline-block;
+    width: 10px; height: 10px;
+    border-radius: 2px;
+    margin-right: 4px;
+  }
+
+  /* TABELA */
+  .table-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+  .table-head {
+    display: grid;
+    grid-template-columns: 50px 1fr 1fr 1fr;
+    background: var(--dark);
+    padding: 10px 14px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #aaa;
+  }
+  .table-row {
+    display: grid;
+    grid-template-columns: 50px 1fr 1fr 1fr;
+    padding: 11px 14px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+    color: var(--dark);
+  }
+  .table-row:last-child { border-bottom: none; }
+  .table-row:nth-child(even) { background: #fafafa; }
+  .year-col {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--orange);
+  }
+  .total-col { font-weight: 600; color: var(--green); }
+
+  /* MENSAGEM */
+  .msg {
+    background: #fff;
+    border-left: 4px solid var(--orange);
+    border-radius: 0 8px 8px 0;
+    padding: 18px 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+  .msg p { font-size: 15px; line-height: 1.7; color: #444; }
+  .msg strong { color: var(--dark); }
+
+  .footer {
+    text-align: center;
+    padding: 16px;
+    border-top: 1px solid #ddd;
+    font-size: 12px;
+    color: #999;
+    letter-spacing: 1px;
+    background: #fff;
+  }
+  .footer span { color: var(--orange); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-logo">CI<span>K</span>ALA<span>®</span></div>
+  <div class="header-tag">Educação Financeira</div>
+</div>
+
+<div class="hero">
+  <div class="hero-eyebrow">O Poder do Hábito</div>
+  <h1 class="hero-title">R$5 por dia<br><span class="accent">transforma</span><br>sua vida</h1>
+  <p class="hero-sub">Veja quanto você acumula guardando apenas o valor de um café por dia, com juros compostos.</p>
+</div>
+
+<div class="section">
+
+  <div class="sliders-card">
+    <div class="slider-group">
+      <div class="slider-label">
+        <span class="lbl">Economia diária</span>
+        <span class="slider-value" id="val-daily">R$ 5,00</span>
+      </div>
+      <input type="range" id="sl-daily" min="1" max="50" step="1" value="5">
+    </div>
+    <div class="slider-group">
+      <div class="slider-label">
+        <span class="lbl">Taxa mensal</span>
+        <span class="slider-value" id="val-rate">0,8% a.m.</span>
+      </div>
+      <input type="range" id="sl-rate" min="3" max="15" step="1" value="8">
+    </div>
+    <div class="slider-group">
+      <div class="slider-label">
+        <span class="lbl">Período</span>
+        <span class="slider-value" id="val-years">1 ano</span>
+      </div>
+      <input type="range" id="sl-years" min="1" max="30" step="1" value="1">
+    </div>
+  </div>
+
+  <div class="result-main">
+    <div class="result-label">Você terá acumulado</div>
+    <div class="result-value" id="result-total">R$&nbsp;1.916,65</div>
+    <div class="result-period" id="result-period">em 1 ano</div>
+  </div>
+
+  <div class="breakdown">
+    <div class="b-card">
+      <div class="b-label">Você depositou</div>
+      <div class="b-val" id="b-invested">R$&nbsp;1.825,00</div>
+    </div>
+    <div class="b-card highlight">
+      <div class="b-label">Juros gerados</div>
+      <div class="b-val" id="b-interest">R$&nbsp;91,65</div>
+    </div>
+  </div>
+
+  <div class="bar-card">
+    <div class="bar-title">Composição do patrimônio</div>
+    <div class="bar-track">
+      <div class="bar-deposited" id="bar-dep" style="width: 95.2184%;">Depositado</div>
+      <div class="bar-interest-fill" id="bar-int" style="width: 4.78164%;">Juros</div>
+    </div>
+    <div class="bar-legend">
+      <span><span class="dot" style="background:#bbb"></span>Depositado</span>
+      <span><span class="dot" style="background:var(--orange)"></span>Juros compostos</span>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <div class="table-head">
+      <span>Ano</span>
+      <span>Depositado</span>
+      <span>Juros</span>
+      <span>Total</span>
+    </div>
+    <div id="table-body"><div class="table-row">
+      <span class="year-col">1º</span>
+      <span>R$&nbsp;1.825,00</span>
+      <span style="color:var(--orange);font-weight:600">R$&nbsp;91,65</span>
+      <span class="total-col">R$&nbsp;1.916,65</span>
+    </div></div>
+  </div>
+
+  <div class="msg">
+    <p><strong>O segredo não é o valor — é a constância.</strong><br>
+    Juros compostos são chamados de "a oitava maravilha do mundo". Cada real poupado hoje gera juros, e esses juros geram mais juros amanhã. Comece hoje, mesmo com pouco.</p>
+  </div>
+
+</div>
+
+<div class="footer">CIKALA® · <span>Educação Financeira para Colaboradores</span></div>
+
+<script>
+const fmtBRL = v => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+function calc(daily, rateM, years) {
+  const rateD = Math.pow(1 + rateM / 100, 1 / 30) - 1;
+  let total = 0;
+  for (let d = 0; d < years * 365; d++) {
+    total = (total + daily) * (1 + rateD);
+  }
+  return total;
+}
+
+function update() {
+  const daily = +document.getElementById('sl-daily').value;
+  const rateRaw = +document.getElementById('sl-rate').value;
+  const years = +document.getElementById('sl-years').value;
+  const rate = rateRaw / 10;
+
+  document.getElementById('val-daily').textContent = `R$ ${daily.toFixed(2).replace('.', ',')}`;
+  document.getElementById('val-rate').textContent = `${rate.toFixed(1).replace('.', ',')}% a.m.`;
+  document.getElementById('val-years').textContent = years === 1 ? '1 ano' : `${years} anos`;
+
+  const total = calc(daily, rate, years);
+  const invested = daily * 365 * years;
+  const interest = total - invested;
+  const pctDep = (invested / total) * 100;
+  const pctInt = (interest / total) * 100;
+
+  document.getElementById('result-total').textContent = fmtBRL(total);
+  document.getElementById('result-period').textContent = `em ${years === 1 ? '1 ano' : years + ' anos'}`;
+  document.getElementById('b-invested').textContent = fmtBRL(invested);
+  document.getElementById('b-interest').textContent = fmtBRL(interest);
+
+  document.getElementById('bar-dep').style.width = pctDep + '%';
+  document.getElementById('bar-int').style.width = pctInt + '%';
+
+  const tbody = document.getElementById('table-body');
+  tbody.innerHTML = '';
+  for (let y = 1; y <= years; y++) {
+    const t = calc(daily, rate, y);
+    const inv = daily * 365 * y;
+    const intr = t - inv;
+    const row = document.createElement('div');
+    row.className = 'table-row';
+    row.innerHTML = `
+      <span class="year-col">${y}º</span>
+      <span>${fmtBRL(inv)}</span>
+      <span style="color:var(--orange);font-weight:600">${fmtBRL(intr)}</span>
+      <span class="total-col">${fmtBRL(t)}</span>
+    `;
+    tbody.appendChild(row);
+  }
+}
+
+['sl-daily','sl-rate','sl-years'].forEach(id =>
+  document.getElementById(id).addEventListener('input', update)
+);
+update();
+</script>
+
+
+</body></html>
